@@ -1,43 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { MapPin, Star, ArrowRight } from 'lucide-react';
-import kedarnathImg from '../assets/kedarnath.png';
-import tungnathImg from '../assets/tungnath.png';
-import kashmirImg from '../assets/kashmir_v2.jpg';
-
-const destinations = [
-    {
-        id: 1,
-        title: "Kedarkantha",
-        location: "Uttarakhand, India",
-        image: "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?q=80&w=2070&auto=format&fit=crop",
-        price: "₹6,000",
-        rating: 5.0,
-    },
-    {
-        id: 2,
-        title: "Kedarnath",
-        location: "Uttarakhand, India",
-        image: kedarnathImg,
-        price: "₹17,500",
-        rating: 5.0,
-    },
-    {
-        id: 3,
-        title: "Kashmir",
-        location: "Jammu & Kashmir, India",
-        image: kashmirImg,
-        price: "₹20,000",
-        rating: 5.0,
-    },
-    {
-        id: 4,
-        title: "Tungnath",
-        location: "Uttarakhand, India",
-        image: tungnathImg,
-        price: "₹6,000",
-        rating: 5.0,
-    },
-];
+import { packages } from '../data/packages';
 
 const Destinations = () => {
     return (
@@ -56,8 +20,12 @@ const Destinations = () => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    {destinations.map((dest) => (
-                        <div key={dest.id} className="group cursor-pointer">
+                    {packages.map((dest) => (
+                        <Link
+                            key={dest.id}
+                            to={`/package/${dest.id}`}
+                            className="group cursor-pointer"
+                        >
                             <div className="relative aspect-[4/5] overflow-hidden rounded-2xl mb-4">
                                 <img
                                     src={dest.image}
@@ -68,6 +36,13 @@ const Destinations = () => {
                                     <Star size={14} className="text-yellow-500 fill-yellow-500" />
                                     {dest.rating}
                                 </div>
+
+                                {/* Hover Overlay */}
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                                    <span className="text-white font-semibold flex items-center gap-2">
+                                        View Details <ArrowRight size={18} />
+                                    </span>
+                                </div>
                             </div>
 
                             <div className="space-y-2">
@@ -75,7 +50,7 @@ const Destinations = () => {
                                     <h3 className="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
                                         {dest.title}
                                     </h3>
-                                    <span className="text-slate-900 font-semibold">{dest.price}</span>
+                                    <span className="text-slate-900 font-semibold">{dest.priceDisplay}</span>
                                 </div>
 
                                 <div className="flex items-center gap-2 text-slate-500 text-sm">
@@ -83,7 +58,7 @@ const Destinations = () => {
                                     {dest.location}
                                 </div>
                             </div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
 
@@ -98,3 +73,4 @@ const Destinations = () => {
 };
 
 export default Destinations;
+

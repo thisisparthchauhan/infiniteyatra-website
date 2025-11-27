@@ -1,6 +1,6 @@
 import React from 'react';
-import { Instagram, Mail } from 'lucide-react';
-import logo from '../assets/logo.png';
+import { Instagram, Mail, Send, Phone } from 'lucide-react';
+import logo from '../assets/logo-new.png';
 
 // Custom Icons for brands not in lucide-react (or specific versions)
 const XIcon = ({ size = 20, className }) => (
@@ -23,40 +23,78 @@ const WhatsAppIcon = ({ size = 20, className }) => (
 
 const Footer = () => {
     return (
-        <footer id="contact" className="bg-slate-900 text-white py-16 relative z-10">
-            <div className="container mx-auto px-6">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+        <footer id="contact" className="relative bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 text-white overflow-hidden">
+            {/* Decorative gradient orbs */}
+            <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
+
+            {/* Top gradient border */}
+            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500/50 to-transparent"></div>
+
+            <div className="relative z-10 container mx-auto px-6 py-20">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-12 lg:gap-16 mb-16">
                     {/* Brand */}
-                    <div className="space-y-4">
-                        <img src={logo} alt="Infinite Yatra" className="h-12 w-12 object-cover rounded-full" />
-                        <p className="text-slate-400 leading-relaxed">
-                            Explore Infinite.
+                    <div className="space-y-6">
+                        <img
+                            src={logo}
+                            alt="Infinite Yatra"
+                            className="h-12 w-auto object-contain transition-transform duration-300 hover:scale-105"
+                        />
+                        <p className="text-slate-400 leading-relaxed text-sm">
+                            Discover breathtaking destinations and create unforgettable memories with Infinite Yatra.
                         </p>
+                        <div className="flex items-center gap-3 pt-2">
+                            <div className="h-1 w-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></div>
+                            <span className="text-xs text-slate-500 font-medium">Explore Infinite</span>
+                        </div>
                     </div>
 
-                    {/* Links */}
+                    {/* Quick Links */}
                     <div>
-                        <h4 className="font-bold mb-6">Company</h4>
-                        <ul className="space-y-4 text-slate-400">
-                            <li><a href="#" className="hover:text-blue-500 transition-colors">About Us</a></li>
-                            <li><a href="#" className="hover:text-blue-500 transition-colors">Careers</a></li>
-                            <li><a href="#" className="hover:text-blue-500 transition-colors">Blog</a></li>
-                            <li><a href="#" className="hover:text-blue-500 transition-colors">Press</a></li>
+                        <h4 className="font-bold text-lg mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                            Company
+                        </h4>
+                        <ul className="space-y-4">
+                            {['About Us', 'Careers', 'Blog', 'Press'].map((item) => (
+                                <li key={item}>
+                                    <a
+                                        href="#"
+                                        className="text-slate-400 hover:text-white transition-all duration-300 group inline-flex items-center gap-2"
+                                    >
+                                        <span className="w-0 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 group-hover:w-4 transition-all duration-300 rounded-full"></span>
+                                        {item}
+                                    </a>
+                                </li>
+                            ))}
                         </ul>
                     </div>
 
+                    {/* Contact */}
                     <div>
-                        <h4 className="font-bold mb-6">Contact Us</h4>
-                        <ul className="space-y-4 text-slate-400">
+                        <h4 className="font-bold text-lg mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                            Contact Us
+                        </h4>
+                        <ul className="space-y-5">
                             <li>
-                                <a href="tel:+919265799325" className="hover:text-blue-500 transition-colors">
-                                    +91 9265799325
+                                <a
+                                    href="tel:+919265799325"
+                                    className="text-slate-400 hover:text-white transition-all duration-300 group flex items-center gap-3"
+                                >
+                                    <div className="p-2 rounded-lg bg-slate-800/50 group-hover:bg-blue-600/20 transition-all duration-300">
+                                        <Phone size={16} className="group-hover:text-blue-400 transition-colors" />
+                                    </div>
+                                    <span>+91 9265799325</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="mailto:infiniteyatra@gmail.com" className="flex items-center gap-2 hover:text-blue-500 transition-colors">
-                                    <Mail size={18} />
-                                    infiniteyatra@gmail.com
+                                <a
+                                    href="mailto:infiniteyatra@gmail.com"
+                                    className="text-slate-400 hover:text-white transition-all duration-300 group flex items-center gap-3"
+                                >
+                                    <div className="p-2 rounded-lg bg-slate-800/50 group-hover:bg-purple-600/20 transition-all duration-300">
+                                        <Mail size={16} className="group-hover:text-purple-400 transition-colors" />
+                                    </div>
+                                    <span className="text-sm">infiniteyatra@gmail.com</span>
                                 </a>
                             </li>
                         </ul>
@@ -64,41 +102,71 @@ const Footer = () => {
 
                     {/* Newsletter */}
                     <div>
-                        <h4 className="font-bold mb-6">Stay Updated</h4>
-                        <p className="text-slate-400 mb-4">Subscribe to our newsletter for the latest travel deals.</p>
-                        <div className="flex gap-2">
-                            <input
-                                type="email"
-                                placeholder="Enter your email"
-                                className="bg-slate-800 text-white px-4 py-2 rounded-lg w-full outline-none focus:ring-2 focus:ring-blue-500"
-                            />
-                            <button className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition-colors">
+                        <h4 className="font-bold text-lg mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                            Stay Updated
+                        </h4>
+                        <p className="text-slate-400 mb-6 text-sm leading-relaxed">
+                            Subscribe to our newsletter for exclusive travel deals and inspiration.
+                        </p>
+                        <div className="space-y-3">
+                            <div className="relative">
+                                <input
+                                    type="email"
+                                    placeholder="Enter your email"
+                                    className="w-full bg-slate-800/50 backdrop-blur-sm text-white px-4 py-3 rounded-xl outline-none 
+                                             border border-slate-700/50 focus:border-blue-500/50 focus:ring-2 focus:ring-blue-500/20 
+                                             transition-all duration-300 placeholder:text-slate-500"
+                                />
+                            </div>
+                            <button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 
+                                             px-4 py-3 rounded-xl transition-all duration-300 font-medium
+                                             shadow-lg shadow-blue-600/20 hover:shadow-xl hover:shadow-blue-600/30
+                                             hover:scale-[1.02] active:scale-[0.98]
+                                             flex items-center justify-center gap-2 group">
                                 Subscribe
+                                <Send size={16} className="group-hover:translate-x-1 transition-transform duration-300" />
                             </button>
                         </div>
                     </div>
                 </div>
 
-                <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-                    <p className="text-slate-500 text-sm">
-                        © {new Date().getFullYear()} Infinite Yatra. All rights reserved.
-                    </p>
-                    <div className="flex items-center gap-6 text-slate-400">
-                        <a href="https://x.com/infiniteyatra" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors" title="X (Twitter)">
-                            <XIcon size={20} />
-                        </a>
-                        <a href="https://www.threads.com/@infinite.yatra" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors" title="Threads">
-                            <ThreadsIcon size={20} />
-                        </a>
-                        <a href="https://www.instagram.com/infinite.yatra/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors" title="Instagram">
-                            <Instagram size={20} />
-                        </a>
-                        <a href="https://api.whatsapp.com/send?phone=919265799325&text=Hey%20Infinite%20Yatra%20%F0%9F%91%8B%2C%20I%E2%80%99m%20interested%20in%20your%20tours.%20Please%20share%20more%20details%20%F0%9F%99%8F" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors" title="WhatsApp">
-                            <WhatsAppIcon size={20} />
-                        </a>
-                        <a href="https://www.whatsapp.com/channel/0029VbBX7rv3gvWStqSdXf08" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors" title="WhatsApp Channel">
-                            <WhatsAppIcon size={20} className="text-green-500" />
-                        </a>
+                {/* Bottom Section */}
+                <div className="relative">
+                    <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-slate-700 to-transparent"></div>
+
+                    <div className="pt-10 flex flex-col md:flex-row items-center justify-between gap-6">
+                        <p className="text-slate-500 text-sm">
+                            © {new Date().getFullYear()} Infinite Yatra. All rights reserved.
+                        </p>
+
+                        {/* Social Media Icons */}
+                        <div className="flex items-center gap-4">
+                            {[
+                                { icon: XIcon, href: "https://x.com/infiniteyatra", title: "X (Twitter)", color: "hover:bg-slate-700" },
+                                { icon: ThreadsIcon, href: "https://www.threads.com/@infinite.yatra", title: "Threads", color: "hover:bg-slate-700" },
+                                { icon: Instagram, href: "https://www.instagram.com/infinite.yatra/", title: "Instagram", color: "hover:bg-gradient-to-br hover:from-purple-600 hover:to-pink-600" },
+                                { icon: WhatsAppIcon, href: "https://api.whatsapp.com/send?phone=919265799325&text=Hey%20Infinite%20Yatra%20%F0%9F%91%8B%2C%20I%E2%80%99m%20interested%20in%20your%20tours.%20Please%20share%20more%20details%20%F0%9F%99%8F", title: "WhatsApp", color: "hover:bg-green-600" },
+                                { icon: WhatsAppIcon, href: "https://www.whatsapp.com/channel/0029VbBX7rv3gvWStqSdXf08", title: "WhatsApp Channel", color: "hover:bg-green-600", iconColor: "text-green-400" }
+                            ].map((social, index) => {
+                                const Icon = social.icon;
+                                return (
+                                    <a
+                                        key={index}
+                                        href={social.href}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        title={social.title}
+                                        className={`p-3 rounded-xl bg-slate-800/50 backdrop-blur-sm text-slate-400 
+                                                  ${social.color} hover:text-white
+                                                  transition-all duration-300 hover:scale-110 hover:-translate-y-1
+                                                  border border-slate-700/50 hover:border-transparent
+                                                  shadow-lg hover:shadow-xl group`}
+                                    >
+                                        <Icon size={20} className={social.iconColor || ""} />
+                                    </a>
+                                );
+                            })}
+                        </div>
                     </div>
                 </div>
             </div>
