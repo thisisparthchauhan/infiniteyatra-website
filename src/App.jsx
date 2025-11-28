@@ -10,22 +10,26 @@ import TripPlanner from './pages/TripPlanner';
 import DestinationsPage from './pages/DestinationsPage';
 import BlogPage from './pages/BlogPage';
 import BlogPost from './pages/BlogPost';
+import Careers from './pages/Careers';
 
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-white font-sans text-slate-900 selection:bg-blue-100">
+      <div className="flex flex-col min-h-screen">
         <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/destinations" element={<DestinationsPage />} />
-          <Route path="/trip-planner" element={<TripPlanner />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/package/:id" element={<PackageDetail />} />
-          <Route path="/blog" element={<BlogPage />} />
-          <Route path="/blog/:id" element={<BlogPost />} />
-        </Routes>
+        <main className="flex-grow">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/destinations" element={<DestinationsPage />} />
+            <Route path="/planner" element={<TripPlanner />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/package/:id" element={<PackageDetail />} />
+            <Route path="/blog" element={<BlogPage />} />
+            <Route path="/blog/:id" element={<BlogPost />} />
+            <Route path="/careers" element={<Careers />} />
+          </Routes>
+        </main>
         <Footer />
       </div>
     </Router>

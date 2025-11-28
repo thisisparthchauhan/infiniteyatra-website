@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Instagram, Mail, Send, Phone } from 'lucide-react';
 import logo from '../assets/logo-new.png';
 
@@ -55,17 +56,24 @@ const Footer = () => {
                             Company
                         </h4>
                         <ul className="space-y-4">
-                            {['About Us', 'Careers'].map((item) => (
-                                <li key={item}>
-                                    <a
-                                        href="#"
-                                        className="text-slate-400 hover:text-white transition-all duration-300 group inline-flex items-center gap-2"
-                                    >
-                                        <span className="w-0 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 group-hover:w-4 transition-all duration-300 rounded-full"></span>
-                                        {item}
-                                    </a>
-                                </li>
-                            ))}
+                            <li>
+                                <a
+                                    href="#"
+                                    className="text-slate-400 hover:text-white transition-all duration-300 group inline-flex items-center gap-2"
+                                >
+                                    <span className="w-0 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 group-hover:w-4 transition-all duration-300 rounded-full"></span>
+                                    About Us
+                                </a>
+                            </li>
+                            <li>
+                                <Link
+                                    to="/careers"
+                                    className="text-slate-400 hover:text-white transition-all duration-300 group inline-flex items-center gap-2"
+                                >
+                                    <span className="w-0 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 group-hover:w-4 transition-all duration-300 rounded-full"></span>
+                                    Careers
+                                </Link>
+                            </li>
                         </ul>
                     </div>
 
