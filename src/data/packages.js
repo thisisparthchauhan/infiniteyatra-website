@@ -4,6 +4,78 @@ import kashmirImg from '../assets/kashmir_v2.jpg';
 
 export const packages = [
     {
+        id: 101,
+        title: "Spiti Valley Winter Expedition",
+        price: 18500,
+        priceDisplay: "₹18,500",
+        duration: "7 Days",
+        location: "Himachal Pradesh",
+        category: "Adventure",
+        image: "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?q=80&w=2070&auto=format&fit=crop",
+        rating: 4.9,
+        description: "Experience the raw beauty of Spiti in winter. Drive through snow-clad mountains, visit ancient monasteries, and witness the frozen Spiti river.",
+        highlights: ["Key Monastery", "Kibber Wildlife Sanctuary", "Pin Valley", "Langza Buddha Statue"],
+        itinerary: [
+            { day: 1, title: "Arrival in Shimla", desc: "Reach Shimla and transfer to hotel. Evening at leisure." },
+            { day: 2, title: "Shimla to Kalpa", desc: "Drive through Kinnaur valley with views of Kinner Kailash." },
+            { day: 3, title: "Kalpa to Kaza", desc: "Enter Spiti Valley via Nako and Tabo." },
+            { day: 4, title: "Kaza Sightseeing", desc: "Visit Key Monastery, Kibber, and Langza." },
+            { day: 5, title: "Kaza to Rakchham", desc: "Drive back towards Kinnaur, stay in the beautiful Sangla valley." },
+            { day: 6, title: "Rakchham to Shimla", desc: "Return journey to Shimla." },
+            { day: 7, title: "Departure", desc: "Depart from Shimla with memories." }
+        ]
+    },
+    {
+        id: 102,
+        title: "Meghalaya: Abode of Clouds",
+        price: 22000,
+        priceDisplay: "₹22,000",
+        duration: "6 Days",
+        location: "Meghalaya",
+        category: "Nature",
+        image: "https://images.unsplash.com/photo-1622308644420-a94bb8a24c96?q=80&w=2070&auto=format&fit=crop",
+        rating: 4.8,
+        description: "Explore the wettest place on earth, walk on living root bridges, and witness the crystal clear waters of Dawki.",
+        highlights: ["Double Decker Root Bridge", "Dawki River", "Mawlynnong Village", "Nohkalikai Falls"],
+        itinerary: [
+            { day: 1, title: "Guwahati to Shillong", desc: "Arrival and transfer to the Scotland of the East." },
+            { day: 2, title: "Shillong to Cherrapunjee", desc: "Visit waterfalls and caves." },
+            { day: 3, title: "Double Decker Trek", desc: "Trek to the famous living root bridges." },
+            { day: 4, title: "Dawki & Mawlynnong", desc: "Visit the cleanest village and crystal clear river." },
+            { day: 5, title: "Shillong Sightseeing", desc: "Explore local markets and cafes." },
+            { day: 6, title: "Departure", desc: "Transfer to Guwahati airport." }
+        ],
+        gallery: [
+            { id: 1, url: 'https://images.unsplash.com/photo-1622308644420-a94bb8a24c96?q=80&w=2070&auto=format&fit=crop', alt: 'Double Decker Living Root Bridge in Meghalaya' },
+            { id: 2, url: 'https://images.unsplash.com/photo-1594818898109-44704fb548f6?q=80&w=2070&auto=format&fit=crop', alt: 'Crystal clear waters of Umngot River in Dawki' },
+            { id: 3, url: 'https://images.unsplash.com/photo-1589041127168-9b1915731463?q=80&w=1974&auto=format&fit=crop', alt: 'Nohkalikai Falls plunging down the cliff' },
+            { id: 4, url: 'https://images.unsplash.com/photo-1629217346827-0c0179371076?q=80&w=2070&auto=format&fit=crop', alt: 'Mawlynnong Village - The cleanest village in Asia' },
+            { id: 5, url: 'https://images.unsplash.com/photo-1624890209428-ee609a3492e8?q=80&w=2070&auto=format&fit=crop', alt: 'Scenic view of Laitlum Canyons' },
+            { id: 6, url: 'https://images.unsplash.com/photo-1517427677506-ade074eb1432?q=80&w=2069&auto=format&fit=crop', alt: 'Limestone caves of Mawsmai' }
+        ]
+    },
+    {
+        id: 103,
+        title: "Kerala Backwaters & Munnar",
+        price: 24500,
+        priceDisplay: "₹24,500",
+        duration: "6 Days",
+        location: "Kerala",
+        category: "Relaxation",
+        image: "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?q=80&w=2070&auto=format&fit=crop",
+        rating: 4.9,
+        description: "Relax in the serene backwaters of Alleppey and explore the tea gardens of Munnar in God's Own Country.",
+        highlights: ["Alleppey Houseboat", "Munnar Tea Gardens", "Kochi Fort", "Athirapally Falls"],
+        itinerary: [
+            { day: 1, title: "Arrival in Kochi", desc: "Transfer to Munnar. Enroute visit Cheeyappara Waterfalls." },
+            { day: 2, title: "Munnar Sightseeing", desc: "Visit Mattupetty Dam, Echo Point, and Tea Museum." },
+            { day: 3, title: "Munnar to Thekkady", desc: "Drive to Periyar Wildlife Sanctuary." },
+            { day: 4, title: "Thekkady to Alleppey", desc: "Check into a houseboat and cruise the backwaters." },
+            { day: 5, title: "Alleppey to Kochi", desc: "Visit Fort Kochi and Chinese Fishing Nets." },
+            { day: 6, title: "Departure", desc: "Transfer to Kochi airport." }
+        ]
+    },
+    {
         id: 'kedarkantha',
         title: "Kedarkantha Trek",
         location: "Uttarakhand, India",
@@ -337,7 +409,7 @@ export const packages = [
     },
     {
         id: 'tungnath',
-        title: "Tungnath & Chandrashila Trek",
+        title: "Tungnath Trek",
         location: "Uttarakhand, India",
         image: tungnathImg,
         price: 6000,

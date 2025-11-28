@@ -257,7 +257,7 @@ const PackageDetail = () => {
 
                                 <div className="p-6 space-y-4">
                                     <a
-                                        href={`https://api.whatsapp.com/send?phone=919265799325&text=Hi, I'm interested in the ${pkg.title} package. Please share more details.`}
+                                        href={`https://api.whatsapp.com/send?phone=919265799325&text=Hi,%20I'm%20interested%20in%20the%20${encodeURIComponent(pkg.title)}%20package.%20Please%20share%20more%20details.`}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 

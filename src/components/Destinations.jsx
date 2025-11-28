@@ -2,72 +2,115 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin, Star, ArrowRight } from 'lucide-react';
 import { packages } from '../data/packages';
+import BookingModal from './BookingModal';
 
-const Destinations = () => {
+const Destinations = ({ packages: propPackages, title = "Explore Infinite", showViewAll = true }) => {
+    const displayPackages = propPackages || packages;
+    const [selectedPackage, setSelectedPackage] = React.useState(null);
+
     return (
         <section id="destinations" className="py-24 bg-white relative z-10">
             <div className="container mx-auto px-6">
                 <div className="flex items-end justify-between mb-12">
                     <div>
-                        <h2 className="text-4xl font-bold text-slate-900 mb-4">Explore Infinite</h2>
+                        <h2 className="text-4xl font-bold text-slate-900 mb-4">{title}</h2>
                         <p className="text-slate-500 text-lg max-w-xl">
                             Discover our most loved travel experiences, curated just for you.
                         </p>
                     </div>
-                    <a href="#" className="hidden md:flex items-center gap-2 text-blue-600 font-medium hover:text-blue-700 transition-colors">
-                        View all <ArrowRight size={20} />
-                    </a>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    {packages.map((dest) => (
-                        <Link
-                            key={dest.id}
-                            to={`/package/${dest.id}`}
-                            className="group cursor-pointer"
-                        >
-                            <div className="relative aspect-[4/5] overflow-hidden rounded-2xl mb-4">
-                                <img
-                                    src={dest.image}
-                                    alt={dest.title}
-                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                />
-                                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full flex items-center gap-1 text-sm font-medium text-slate-900 shadow-sm">
-                                    <Star size={14} className="text-yellow-500 fill-yellow-500" />
-                                    {dest.rating}
-                                </div>
-
-                                {/* Hover Overlay */}
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                                    <span className="text-white font-semibold flex items-center gap-2">
-                                        View Details <ArrowRight size={18} />
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div className="space-y-2">
-                                <div className="flex items-center justify-between">
-                                    <h3 className="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
-                                        {dest.title}
-                                    </h3>
-                                    <span className="text-slate-900 font-semibold">{dest.priceDisplay}</span>
-                                </div>
-
-                                <div className="flex items-center gap-2 text-slate-500 text-sm">
-                                    <MapPin size={16} />
-                                    {dest.location}
-                                </div>
-                            </div>
+                    {showViewAll && (
+                        <Link to="/destinations" className="hidden md:flex items-center gap-2 text-blue-600 font-medium hover:text-blue-700 transition-colors">
+                            View all <ArrowRight size={20} />
                         </Link>
-                    ))}
+                    )}
                 </div>
 
-                <div className="mt-12 md:hidden text-center">
-                    <a href="#" className="inline-flex items-center gap-2 text-blue-600 font-medium hover:text-blue-700 transition-colors">
-                        View all <ArrowRight size={20} />
-                    </a>
-                </div>
+                {displayPackages.length > 0 ? (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {displayPackages.map((dest) => (
+                            <Link
+                                key={dest.id}
+                                to={`/package/${dest.id}`}
+                                className="group cursor-pointer"
+                            >
+                                <div className="relative aspect-[4/5] overflow-hidden rounded-2xl mb-4">
+                                    <img
+                                        src={dest.image}
+                                        alt={dest.title}
+                                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                    />
+                                    <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full flex items-center gap-1 text-sm font-medium text-slate-900 shadow-sm">
+                                        <Star size={14} className="text-yellow-500 fill-yellow-500" />
+                                        {dest.rating}
+                                    </div>
+
+                                    {/* Hover Overlay */}
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                                        <span className="text-white font-semibold flex items-center gap-2">
+                                            View Details <ArrowRight size={18} />
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div className="space-y-3">
+                                    <div className="flex items-center justify-between">
+                                        <h3 className="text-xl font-bold text-slate-950 group-hover:text-blue-600 transition-colors">
+                                            {dest.title}
+                                        </h3>
+                                        <span className="text-slate-950 font-bold">{dest.priceDisplay}</span>
+                                    </div>
+
+                                    <div className="flex items-center gap-2 text-slate-600 text-sm">
+                                        <MapPin size={16} />
+                                        {dest.location}
+                                    </div>
+
+                                    {/* Book Now Button */}
+                                    <button
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            e.stopPropagation();
+                                            setSelectedPackage(dest);
+                                        }}
+                                        className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 
+                                                 text-white px-4 py-2.5 rounded-lg font-semibold text-sm
+                                                 shadow-md hover:shadow-lg transition-all duration-300 
+                                                 flex items-center justify-center gap-2 group/btn"
+                                    >
+                                        <span>Book Now</span>
+                                        <ArrowRight size={16} className="group-hover/btn:translate-x-1 transition-transform" />
+                                    </button>
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
+                ) : (
+                    <div className="text-center py-12">
+                        <p className="text-xl text-slate-500">No packages found matching your criteria.</p>
+                        <button
+                            onClick={() => window.location.reload()}
+                            className="mt-4 text-blue-600 font-medium hover:underline"
+                        >
+                            Reset Filters
+                        </button>
+                    </div>
+                )}
+
+                {showViewAll && (
+                    <div className="mt-12 md:hidden text-center">
+                        <Link to="/destinations" className="inline-flex items-center gap-2 text-blue-600 font-medium hover:text-blue-700 transition-colors">
+                            View all <ArrowRight size={20} />
+                        </Link>
+                    </div>
+                )}
             </div>
+
+            {/* Booking Modal */}
+            <BookingModal
+                isOpen={!!selectedPackage}
+                onClose={() => setSelectedPackage(null)}
+                packageTitle={selectedPackage?.title}
+            />
         </section>
     );
 };

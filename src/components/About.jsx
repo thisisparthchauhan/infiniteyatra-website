@@ -1,9 +1,48 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Heart, Compass, Mountain } from 'lucide-react';
+import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
 
 const About = () => {
+    const ref = useRef(null);
+
+    // Motion values for mouse position
+    const x = useMotionValue(0);
+    const y = useMotionValue(0);
+
+    // Smooth spring animation
+    const springConfig = { damping: 25, stiffness: 150 };
+    const mouseX = useSpring(x, springConfig);
+    const mouseY = useSpring(y, springConfig);
+
+    // Transforms for different images to create depth
+    // Image 1: Moves opposite to mouse
+    const x1 = useTransform(mouseX, [-500, 500], [15, -15]);
+    const y1 = useTransform(mouseY, [-500, 500], [15, -15]);
+
+    // Image 2: Moves with mouse
+    const x2 = useTransform(mouseX, [-500, 500], [-15, 15]);
+    const y2 = useTransform(mouseY, [-500, 500], [-15, 15]);
+
+    // Image 3: Subtle movement
+    const x3 = useTransform(mouseX, [-500, 500], [10, -10]);
+    const y3 = useTransform(mouseY, [-500, 500], [10, -10]);
+
+    const handleMouseMove = (e) => {
+        const rect = ref.current.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+
+        x.set(e.clientX - centerX);
+        y.set(e.clientY - centerY);
+    };
+
     return (
-        <section id="about" className="py-24 bg-slate-50 relative z-10">
+        <section
+            id="about"
+            ref={ref}
+            onMouseMove={handleMouseMove}
+            className="py-24 bg-slate-50 relative z-10 overflow-hidden"
+        >
             <div className="container mx-auto px-6">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                     {/* Content */}
@@ -65,19 +104,21 @@ const About = () => {
                     </div>
 
                     {/* Image Grid */}
-                    {/* Image Grid */}
                     <div className="grid grid-cols-2 gap-4">
-                        <img
+                        <motion.img
+                            style={{ x: x1, y: y1 }}
                             src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=2070&auto=format&fit=crop"
                             alt="Mountain"
                             className="rounded-2xl shadow-lg w-full h-64 object-cover mt-8"
                         />
-                        <img
+                        <motion.img
+                            style={{ x: x2, y: y2 }}
                             src="https://images.unsplash.com/photo-1548013146-72479768bada?q=80&w=1776&auto=format&fit=crop"
                             alt="Temple"
                             className="rounded-2xl shadow-lg w-full h-64 object-cover"
                         />
-                        <img
+                        <motion.img
+                            style={{ x: x3, y: y3 }}
                             src="https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?q=80&w=2070&auto=format&fit=crop"
                             alt="Harshil Valley"
                             className="rounded-2xl shadow-lg w-full h-64 object-cover col-span-2"

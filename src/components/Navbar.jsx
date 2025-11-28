@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Search, User, MapPin, Package, Info, Mail } from 'lucide-react';
+import { Menu, X, Phone, Search, MapPin, Info, Sparkles, BookOpen, Home, User, Package, Mail } from 'lucide-react';
 
 import logo from '../assets/logo-new.png';
 
@@ -10,13 +10,15 @@ const Navbar = () => {
     const [activeSection, setActiveSection] = useState('');
     const location = useLocation();
     const isAuthPage = location.pathname === '/login' || location.pathname === '/signup';
+    const isTripPlannerPage = location.pathname === '/trip-planner';
+    const isDestinationsPage = location.pathname === '/destinations';
 
     useEffect(() => {
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 50);
 
             // Detect active section for highlighting
-            const sections = ['destinations', 'about', 'contact'];
+            const sections = ['destinations', 'blog-preview', 'about', 'contact'];
 
             // Check if we're near the bottom of the page (contact section)
             const windowHeight = window.innerHeight;
@@ -57,20 +59,31 @@ const Navbar = () => {
     }, [isMobileMenuOpen]);
 
     const navItems = [
-        { name: 'Destinations', icon: MapPin, href: '#destinations' },
-        { name: 'About', icon: Info, href: '#about' },
-        { name: 'Contact', icon: Mail, href: '#contact' }
+        { name: 'Home', icon: Home, href: '/', type: 'link' },
+        { name: 'Destinations', icon: MapPin, href: '/destinations', type: 'link' },
+        { name: 'AI Trip Planner', icon: Sparkles, href: '/trip-planner', type: 'link' },
+        { name: 'Blog', icon: BookOpen, href: '/blog', type: 'link' },
+        { name: 'About Us', icon: Info, href: '#about', type: 'scroll' },
+        { name: 'Contact', icon: Mail, href: '#contact', type: 'scroll' }
     ];
 
-    const navBackground = isAuthPage || isScrolled
+    const navBackground = isAuthPage || isScrolled || isDestinationsPage
         ? 'bg-white/95 backdrop-blur-xl shadow-lg border-b border-slate-200/50'
         : 'bg-gradient-to-b from-black/30 to-transparent backdrop-blur-sm';
 
-    const textColor = isAuthPage || isScrolled ? 'text-slate-900' : 'text-white';
+    const textColor = isAuthPage || isScrolled || isDestinationsPage ? 'text-slate-900' : 'text-white';
 
     const handleNavClick = (e, href) => {
         e.preventDefault();
         setIsMobileMenuOpen(false);
+
+        // If we're not on the homepage, navigate to homepage with hash
+        if (location.pathname !== '/') {
+            window.location.href = '/' + href;
+            return;
+        }
+
+        // If we're on homepage, scroll to section
         const element = document.querySelector(href);
         if (element) {
             const offset = 80;
@@ -104,7 +117,54 @@ const Navbar = () => {
                         <div className="hidden md:flex items-center gap-1 lg:gap-2">
                             {!isAuthPage && navItems.map((item) => {
                                 const Icon = item.icon;
-                                const isActive = activeSection === item.name.toLowerCase();
+                                // For Home link, only active if on homepage AND no active section
+                                // For other links, check pathname or active section
+                                const isActive = item.name === 'Home'
+                                    ? location.pathname === '/' && !activeSection
+                                    : item.type === 'link'
+                                        ? location.pathname === item.href || (location.pathname === '/' && activeSection === 'destinations' && item.name === 'Destinations') || (location.pathname === '/' && activeSection === 'blog-preview' && item.name === 'Blog')
+                                        : activeSection === item.href.replace('#', '');
+
+                                if (item.type === 'link') {
+                                    return (
+                                        <Link
+                                            key={item.name}
+                                            to={item.href}
+                                            onClick={(e) => {
+                                                // If clicking Home while already on homepage, scroll to top
+                                                if (item.name === 'Home' && location.pathname === '/') {
+                                                    e.preventDefault();
+                                                    window.scrollTo({
+                                                        top: 0,
+                                                        behavior: 'smooth'
+                                                    });
+                                                }
+                                            }}
+                                            className={`
+                                                relative px-4 py-2 text-sm font-medium rounded-lg
+                                                transition-all duration-300 group
+                                                flex items-center gap-2
+                                                ${isActive
+                                                    ? (isAuthPage || isScrolled || isTripPlannerPage || isDestinationsPage
+                                                        ? 'text-blue-600 bg-blue-50'
+                                                        : 'text-white bg-white/20')
+                                                    : (isAuthPage || isScrolled || isTripPlannerPage || isDestinationsPage
+                                                        ? 'text-slate-600 hover:text-blue-600 hover:bg-slate-50'
+                                                        : 'text-white/90 hover:text-white hover:bg-white/10')
+                                                }
+                                            `}
+                                        >
+                                            <Icon size={16} className="transition-transform duration-300 group-hover:scale-110" />
+                                            <span>{item.name}</span>
+                                            <span className={`
+                                                absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500
+                                                transition-all duration-300 rounded-full
+                                                ${isActive ? 'w-3/4' : 'w-0 group-hover:w-3/4'}
+                                            `}></span>
+                                        </Link>
+                                    );
+                                }
+
                                 return (
                                     <a
                                         key={item.name}
@@ -115,10 +175,10 @@ const Navbar = () => {
                                             transition-all duration-300 group
                                             flex items-center gap-2
                                             ${isActive
-                                                ? (isAuthPage || isScrolled
+                                                ? (isAuthPage || isScrolled || isTripPlannerPage || isDestinationsPage
                                                     ? 'text-blue-600 bg-blue-50'
                                                     : 'text-white bg-white/20')
-                                                : (isAuthPage || isScrolled
+                                                : (isAuthPage || isScrolled || isTripPlannerPage || isDestinationsPage
                                                     ? 'text-slate-600 hover:text-blue-600 hover:bg-slate-50'
                                                     : 'text-white/90 hover:text-white hover:bg-white/10')
                                             }
@@ -219,7 +279,48 @@ const Navbar = () => {
                     <div className="p-6 space-y-2">
                         {!isAuthPage && navItems.map((item, index) => {
                             const Icon = item.icon;
-                            const isActive = activeSection === item.name.toLowerCase();
+                            const isActive = item.name === 'Home'
+                                ? location.pathname === '/' && !activeSection
+                                : item.type === 'link'
+                                    ? location.pathname === item.href
+                                    : activeSection === item.href.replace('#', '');
+
+                            if (item.type === 'link') {
+                                return (
+                                    <Link
+                                        key={item.name}
+                                        to={item.href}
+                                        onClick={() => {
+                                            setIsMobileMenuOpen(false);
+                                            // If clicking Home while already on homepage, scroll to top
+                                            if (item.name === 'Home' && location.pathname === '/') {
+                                                setTimeout(() => {
+                                                    window.scrollTo({
+                                                        top: 0,
+                                                        behavior: 'smooth'
+                                                    });
+                                                }, 100);
+                                            }
+                                        }}
+                                        className={`
+                                            flex items-center gap-3 px-4 py-3 rounded-xl font-medium
+                                            transition-all duration-300
+                                            ${isActive
+                                                ? 'bg-gradient-to-r from-blue-50 to-purple-50 text-blue-600 shadow-sm'
+                                                : 'text-slate-700 hover:bg-slate-50'}
+                                            transform hover:translate-x-1
+                                        `}
+                                        style={{
+                                            animationDelay: `${index * 50}ms`,
+                                            animation: isMobileMenuOpen ? 'slideInRight 0.3s ease-out forwards' : 'none'
+                                        }}
+                                    >
+                                        <Icon size={20} />
+                                        <span>{item.name}</span>
+                                    </Link>
+                                );
+                            }
+
                             return (
                                 <a
                                     key={item.name}
