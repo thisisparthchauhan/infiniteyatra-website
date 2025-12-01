@@ -1,10 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
+import SEO from '../components/SEO';
 
 const Signup = () => {
     return (
         <div className="min-h-screen flex items-center justify-center relative">
+            <SEO
+                title="Sign Up"
+                description="Create an account with Infinite Yatra to start planning your dream journey."
+                url="/signup"
+            />
             {/* Background Image */}
             <div className="absolute inset-0 z-0">
                 <img

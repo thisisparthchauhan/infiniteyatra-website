@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getBlogById } from '../data/blogs';
 import { Calendar, User, ArrowLeft, Clock } from 'lucide-react';
+import SEO from '../components/SEO';
 
 const BlogPost = () => {
     const { id } = useParams();
@@ -22,6 +23,12 @@ const BlogPost = () => {
 
     return (
         <article className="pt-24 pb-20 bg-white min-h-screen">
+            <SEO
+                title={blog.title}
+                description={blog.excerpt}
+                image={blog.image}
+                url={`/blog/${id}`}
+            />
             {/* Hero Image */}
             <div className="w-full h-[400px] md:h-[500px] relative mb-12">
                 <img

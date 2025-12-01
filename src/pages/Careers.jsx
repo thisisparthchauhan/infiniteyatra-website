@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Briefcase, Globe, Heart, Rocket, ArrowRight, Mail } from 'lucide-react';
+import SEO from '../components/SEO';
 
 const Careers = () => {
     useEffect(() => {
@@ -53,6 +54,11 @@ const Careers = () => {
 
     return (
         <div className="pt-20 min-h-screen bg-slate-50">
+            <SEO
+                title="Careers"
+                description="Join the Infinite Yatra team. We are looking for passionate individuals to help us build the future of travel."
+                url="/careers"
+            />
             {/* Hero Section */}
             <div className="relative bg-slate-900 text-white py-24 overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-900 to-purple-900 opacity-90"></div>

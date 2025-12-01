@@ -5,6 +5,7 @@ import {
     Clock, Sun, Sunset, Moon, Coffee, UtensilsCrossed,
     Camera, Compass, Heart, TrendingUp, Loader2
 } from 'lucide-react';
+import SEO from '../components/SEO';
 
 const TripPlanner = () => {
     const [formData, setFormData] = useState({
@@ -176,6 +177,11 @@ const TripPlanner = () => {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 pt-24 pb-16">
+            <SEO
+                title="Trip Planner"
+                description="Plan your perfect trip with our AI-powered itinerary generator. Customized travel plans based on your budget and preferences."
+                url="/trip-planner"
+            />
             <div className="container mx-auto px-6 lg:px-8">
                 {/* Header */}
                 <motion.div

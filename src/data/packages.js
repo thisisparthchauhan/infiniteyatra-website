@@ -1,80 +1,10 @@
 import kedarnathImg from '../assets/kedarnath.png';
 import tungnathImg from '../assets/tungnath.png';
 import kashmirImg from '../assets/kashmir_v2.jpg';
+import soulOfHimalayasImg from '../assets/soul_of_himalayas.png';
 
 export const packages = [
-    {
-        id: 101,
-        title: "Spiti Valley Winter Expedition",
-        price: 18500,
-        priceDisplay: "₹18,500",
-        duration: "7 Days",
-        location: "Himachal Pradesh",
-        category: "Adventure",
-        image: "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?q=80&w=2070&auto=format&fit=crop",
-        rating: 4.9,
-        description: "Experience the raw beauty of Spiti in winter. Drive through snow-clad mountains, visit ancient monasteries, and witness the frozen Spiti river.",
-        highlights: ["Key Monastery", "Kibber Wildlife Sanctuary", "Pin Valley", "Langza Buddha Statue"],
-        itinerary: [
-            { day: 1, title: "Arrival in Shimla", desc: "Reach Shimla and transfer to hotel. Evening at leisure." },
-            { day: 2, title: "Shimla to Kalpa", desc: "Drive through Kinnaur valley with views of Kinner Kailash." },
-            { day: 3, title: "Kalpa to Kaza", desc: "Enter Spiti Valley via Nako and Tabo." },
-            { day: 4, title: "Kaza Sightseeing", desc: "Visit Key Monastery, Kibber, and Langza." },
-            { day: 5, title: "Kaza to Rakchham", desc: "Drive back towards Kinnaur, stay in the beautiful Sangla valley." },
-            { day: 6, title: "Rakchham to Shimla", desc: "Return journey to Shimla." },
-            { day: 7, title: "Departure", desc: "Depart from Shimla with memories." }
-        ]
-    },
-    {
-        id: 102,
-        title: "Meghalaya",
-        price: 22000,
-        priceDisplay: "₹22,000",
-        duration: "6 Days",
-        location: "Meghalaya",
-        category: "Nature",
-        image: "https://images.unsplash.com/photo-1594818898109-44704fb548f6?q=80&w=2070&auto=format&fit=crop",
-        rating: 4.8,
-        description: "Explore the wettest place on earth, walk on living root bridges, and witness the crystal clear waters of Dawki.",
-        highlights: ["Double Decker Root Bridge", "Dawki River", "Mawlynnong Village", "Nohkalikai Falls"],
-        itinerary: [
-            { day: 1, title: "Guwahati to Shillong", desc: "Arrival and transfer to the Scotland of the East." },
-            { day: 2, title: "Shillong to Cherrapunjee", desc: "Visit waterfalls and caves." },
-            { day: 3, title: "Double Decker Trek", desc: "Trek to the famous living root bridges." },
-            { day: 4, title: "Dawki & Mawlynnong", desc: "Visit the cleanest village and crystal clear river." },
-            { day: 5, title: "Shillong Sightseeing", desc: "Explore local markets and cafes." },
-            { day: 6, title: "Departure", desc: "Transfer to Guwahati airport." }
-        ],
-        gallery: [
-            { id: 1, url: 'https://images.unsplash.com/photo-1622308644420-a94bb8a24c96?q=80&w=2070&auto=format&fit=crop', alt: 'Double Decker Living Root Bridge in Meghalaya' },
-            { id: 2, url: 'https://images.unsplash.com/photo-1594818898109-44704fb548f6?q=80&w=2070&auto=format&fit=crop', alt: 'Crystal clear waters of Umngot River in Dawki' },
-            { id: 3, url: 'https://images.unsplash.com/photo-1589041127168-9b1915731463?q=80&w=1974&auto=format&fit=crop', alt: 'Nohkalikai Falls plunging down the cliff' },
-            { id: 4, url: 'https://images.unsplash.com/photo-1629217346827-0c0179371076?q=80&w=2070&auto=format&fit=crop', alt: 'Mawlynnong Village - The cleanest village in Asia' },
-            { id: 5, url: 'https://images.unsplash.com/photo-1624890209428-ee609a3492e8?q=80&w=2070&auto=format&fit=crop', alt: 'Scenic view of Laitlum Canyons' },
-            { id: 6, url: 'https://images.unsplash.com/photo-1517427677506-ade074eb1432?q=80&w=2069&auto=format&fit=crop', alt: 'Limestone caves of Mawsmai' }
-        ]
-    },
-    {
-        id: 103,
-        title: "Kerala Backwaters & Munnar",
-        price: 24500,
-        priceDisplay: "₹24,500",
-        duration: "6 Days",
-        location: "Kerala",
-        category: "Relaxation",
-        image: "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?q=80&w=2070&auto=format&fit=crop",
-        rating: 4.9,
-        description: "Relax in the serene backwaters of Alleppey and explore the tea gardens of Munnar in God's Own Country.",
-        highlights: ["Alleppey Houseboat", "Munnar Tea Gardens", "Kochi Fort", "Athirapally Falls"],
-        itinerary: [
-            { day: 1, title: "Arrival in Kochi", desc: "Transfer to Munnar. Enroute visit Cheeyappara Waterfalls." },
-            { day: 2, title: "Munnar Sightseeing", desc: "Visit Mattupetty Dam, Echo Point, and Tea Museum." },
-            { day: 3, title: "Munnar to Thekkady", desc: "Drive to Periyar Wildlife Sanctuary." },
-            { day: 4, title: "Thekkady to Alleppey", desc: "Check into a houseboat and cruise the backwaters." },
-            { day: 5, title: "Alleppey to Kochi", desc: "Visit Fort Kochi and Chinese Fishing Nets." },
-            { day: 6, title: "Departure", desc: "Transfer to Kochi airport." }
-        ]
-    },
+
     {
         id: 'kedarkantha',
         title: "Kedarkantha Trek",
@@ -82,6 +12,9 @@ export const packages = [
         image: "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?q=80&w=2070&auto=format&fit=crop",
         price: 6000,
         priceDisplay: "₹6,000",
+        type: "mixed",
+        pdf: "/itineraries/IY_Kedarkantha.pdf",
+        availableDates: ["2025-12-29"],
         rating: 5.0,
         duration: "6 Days / 5 Nights",
         difficulty: "Moderate",
@@ -254,6 +187,7 @@ export const packages = [
         image: kedarnathImg,
         price: 17500,
         priceDisplay: "₹17,500",
+        type: "custom",
         rating: 5.0,
         duration: "5 Days / 4 Nights",
         difficulty: "Moderate",
@@ -328,6 +262,7 @@ export const packages = [
         image: kashmirImg,
         price: 20000,
         priceDisplay: "₹20,000",
+        type: "custom",
         rating: 5.0,
         duration: "7 Days / 6 Nights",
         difficulty: "Easy",
@@ -414,6 +349,8 @@ export const packages = [
         image: tungnathImg,
         price: 6000,
         priceDisplay: "₹6,000",
+        type: "fixed",
+        availableDates: ["2025-04-15", "2025-05-01", "2025-05-15"],
         rating: 5.0,
         duration: "4 Days / 3 Nights",
         difficulty: "Easy to Moderate",
@@ -473,6 +410,146 @@ export const packages = [
             tungnathImg,
             "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2070&auto=format&fit=crop",
             "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?q=80&w=2070&auto=format&fit=crop"
+        ]
+    },
+    {
+        id: 'chardham-2026',
+        title: "Chardham Yatra 2026",
+        location: "Uttarakhand, India",
+        image: kedarnathImg,
+        price: 35000,
+        priceDisplay: "₹35,000",
+        type: "custom",
+        discount: "Early Bird Discount",
+        rating: 5.0,
+        duration: "10 Days / 9 Nights",
+        difficulty: "Moderate",
+        bestTime: "May to October",
+        maxAltitude: "11,755 ft",
+        description: "Embark on the holy Chardham Yatra in 2026. Visit Gangotri, Yamunotri, Kedarnath, and Badrinath. Book now to avail early bird discounts!",
+        highlights: [
+            "Visit Gangotri & Yamunotri",
+            "Darshan at Kedarnath & Badrinath",
+            "Scenic Himalayan drive",
+            "Spiritual Ganga Aarti",
+            "Comfortable accommodation"
+        ],
+        itinerary: [
+            {
+                day: 1,
+                title: "Haridwar to Barkot",
+                description: "Drive to Barkot via Mussoorie. Visit Kempty Falls.",
+                activities: ["Scenic drive", "Waterfall visit"]
+            },
+            {
+                day: 2,
+                title: "Barkot to Yamunotri",
+                description: "Trek to Yamunotri temple and return to Barkot.",
+                activities: ["Trek", "Temple darshan"]
+            },
+            {
+                day: 3,
+                title: "Barkot to Uttarkashi",
+                description: "Drive to Uttarkashi. Visit Kashi Vishwanath Temple.",
+                activities: ["Temple visit", "River view"]
+            },
+            {
+                day: 4,
+                title: "Uttarkashi to Gangotri",
+                description: "Drive to Gangotri, darshan, and return to Uttarkashi.",
+                activities: ["Temple darshan", "Ganga puja"]
+            },
+            {
+                day: 5,
+                title: "Uttarkashi to Guptkashi",
+                description: "Long drive to Guptkashi via Tehri Dam.",
+                activities: ["Scenic drive", "Dam view"]
+            },
+            {
+                day: 6,
+                title: "Guptkashi to Kedarnath",
+                description: "Trek to Kedarnath. Evening Aarti.",
+                activities: ["Trek", "Aarti"]
+            },
+            {
+                day: 7,
+                title: "Kedarnath to Guptkashi",
+                description: "Morning darshan and trek down.",
+                activities: ["Darshan", "Trek down"]
+            },
+            {
+                day: 8,
+                title: "Guptkashi to Badrinath",
+                description: "Drive to Badrinath via Chopta.",
+                activities: ["Scenic drive", "Temple darshan"]
+            },
+            {
+                day: 9,
+                title: "Badrinath to Rudraprayag",
+                description: "Morning darshan and drive to Rudraprayag.",
+                activities: ["Darshan", "Confluence view"]
+            },
+            {
+                day: 10,
+                title: "Rudraprayag to Haridwar",
+                description: "Drive back to Haridwar. Trip concludes.",
+                activities: ["Return journey"]
+            }
+        ],
+        inclusions: [
+            "Accommodation",
+            "Meals (Breakfast & Dinner)",
+            "Transportation",
+            "Guide"
+        ],
+        exclusions: [
+            "Lunch",
+            "Personal expenses",
+            "Helicopter tickets"
+        ],
+        images: [
+            kedarnathImg,
+            "https://images.unsplash.com/photo-1548013146-72479768bada?q=80&w=2076&auto=format&fit=crop"
+        ]
+    },
+    {
+        id: 'soul-of-himalayas',
+        title: "The Soul of Himalayas",
+        location: "Himalayas, India",
+        image: soulOfHimalayasImg,
+        price: 0,
+        priceDisplay: "₹TBD",
+        type: "custom",
+        pdf: "/itineraries/IY_The_Soul_Of_Himalayas.pdf",
+        rating: 5.0,
+        duration: "TBD Days",
+        difficulty: "Moderate",
+        bestTime: "Year Round",
+        maxAltitude: "TBD ft",
+        description: "Experience the spiritual and natural essence of the Himalayas. (Description to be updated)",
+        highlights: [
+            "Highlight 1",
+            "Highlight 2",
+            "Highlight 3"
+        ],
+        itinerary: [
+            {
+                day: 1,
+                title: "Arrival",
+                description: "Arrival description.",
+                activities: ["Arrival"]
+            }
+        ],
+        inclusions: [
+            "Accommodation",
+            "Meals",
+            "Transport"
+        ],
+        exclusions: [
+            "Personal Expenses"
+        ],
+        images: [
+            soulOfHimalayasImg
         ]
     }
 ];

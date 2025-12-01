@@ -5,6 +5,7 @@ import { getPackageById } from '../data/packages';
 import PhotoGallery from '../components/PhotoGallery';
 import Reviews from '../components/Reviews';
 import FAQ from '../components/FAQ';
+import SEO from '../components/SEO';
 
 const PackageDetail = () => {
     const { id } = useParams();
@@ -35,6 +36,12 @@ const PackageDetail = () => {
 
     return (
         <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+            <SEO
+                title={pkg.title}
+                description={pkg.description}
+                image={pkg.image}
+                url={`/package/${id}`}
+            />
             {/* Hero Section */}
             <div className="relative h-[70vh] overflow-hidden">
                 <img
@@ -64,6 +71,14 @@ const PackageDetail = () => {
                             <div className="px-3 py-1 bg-blue-600/80 backdrop-blur-sm rounded-full text-white text-sm font-medium">
                                 {pkg.difficulty}
                             </div>
+                            <div className={`px-3 py-1 backdrop-blur-sm rounded-full text-white text-sm font-medium border border-white/30 ${pkg.type === 'fixed' ? 'bg-orange-600/80' : pkg.type === 'mixed' ? 'bg-purple-600/80' : 'bg-green-600/80'}`}>
+                                {pkg.type === 'fixed' ? 'Fixed Departure' : pkg.type === 'mixed' ? 'Fixed & Custom' : 'Customizable'}
+                            </div>
+                            {pkg.discount && (
+                                <div className="px-3 py-1 bg-red-600/90 backdrop-blur-sm rounded-full text-white text-sm font-bold animate-pulse">
+                                    {pkg.discount}
+                                </div>
+                            )}
                         </div>
 
                         <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">{pkg.title}</h1>
@@ -96,6 +111,24 @@ const PackageDetail = () => {
                                 </div>
                             </div>
                         </div>
+
+                        {(pkg.type === 'fixed' || pkg.type === 'mixed') && pkg.availableDates && (
+                            <div className="mt-6 p-4 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 inline-block">
+                                <p className="text-white/80 text-sm mb-2">Upcoming Departures</p>
+                                <div className="flex flex-wrap gap-2">
+                                    {pkg.availableDates.slice(0, 3).map(date => (
+                                        <span key={date} className="px-3 py-1 bg-white/20 rounded-lg text-white text-sm font-medium">
+                                            {new Date(date).toLocaleDateString('en-US', { day: 'numeric', month: 'short' })}
+                                        </span>
+                                    ))}
+                                    {pkg.availableDates.length > 3 && (
+                                        <span className="px-3 py-1 bg-white/10 rounded-lg text-white/80 text-sm">
+                                            +{pkg.availableDates.length - 3} more
+                                        </span>
+                                    )}
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
@@ -256,18 +289,29 @@ const PackageDetail = () => {
                                 </div>
 
                                 <div className="p-6 space-y-4">
-                                    <a
-                                        href={`https://api.whatsapp.com/send?phone=919265799325&text=Hi,%20I'm%20interested%20in%20the%20${encodeURIComponent(pkg.title)}%20package.%20Please%20share%20more%20details.`}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 
+                                    <button
+                                        onClick={() => navigate(`/book/${id}`)}
+                                        className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 
                                                  text-white px-6 py-4 rounded-xl font-semibold transition-all duration-300
-                                                 shadow-lg shadow-green-600/30 hover:shadow-xl hover:shadow-green-600/40
+                                                 shadow-lg shadow-blue-600/30 hover:shadow-xl hover:shadow-blue-600/40
                                                  flex items-center justify-center gap-2 group"
                                     >
-                                        <MessageCircle size={20} className="group-hover:scale-110 transition-transform" />
-                                        Book on WhatsApp
-                                    </a>
+                                        <Calendar size={20} className="group-hover:scale-110 transition-transform" />
+                                        Book Now
+                                    </button>
+
+                                    {pkg.pdf && (
+                                        <a
+                                            href={pkg.pdf}
+                                            download
+                                            className="w-full bg-white border-2 border-slate-200 hover:border-blue-600 hover:text-blue-600
+                                                     text-slate-600 px-6 py-4 rounded-xl font-semibold transition-all duration-300
+                                                     flex items-center justify-center gap-2 group"
+                                        >
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:scale-110 transition-transform"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                            Download Itinerary
+                                        </a>
+                                    )}
 
                                     <div className="relative">
                                         <div className="absolute inset-0 flex items-center">

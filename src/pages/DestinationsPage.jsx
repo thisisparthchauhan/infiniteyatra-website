@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import Destinations from '../components/Destinations';
 import SearchFilter from '../components/SearchFilter';
+import SEO from '../components/SEO';
 import { packages } from '../data/packages';
 
 const DestinationsPage = () => {
@@ -63,6 +64,11 @@ const DestinationsPage = () => {
 
     return (
         <div className="pt-24 pb-12 bg-slate-50 min-h-screen">
+            <SEO
+                title="Destinations"
+                description="Explore our curated collection of treks, tours, and spiritual journeys. Find your dream journey with Infinite Yatra."
+                url="/destinations"
+            />
             <div className="container mx-auto px-6">
                 <div className="mb-10 text-center">
                     <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">

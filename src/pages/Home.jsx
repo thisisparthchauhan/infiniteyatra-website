@@ -4,6 +4,7 @@ import Destinations from '../components/Destinations';
 import About from '../components/About';
 import BlogPreview from '../components/BlogPreview';
 import Contact from '../components/Contact';
+import SEO from '../components/SEO';
 
 
 const Home = () => {
@@ -29,6 +30,10 @@ const Home = () => {
 
     return (
         <>
+            <SEO
+                title="Home"
+                description="Welcome to Infinite Yatra. Discover your next adventure with our curated travel packages and expert guides."
+            />
             <Hero />
             <Destinations />
             <BlogPreview />

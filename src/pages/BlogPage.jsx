@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { blogs } from '../data/blogs';
 import BlogCard from '../components/BlogCard';
+import SEO from '../components/SEO';
 
 const BlogPage = () => {
     const [selectedCategory, setSelectedCategory] = useState('All');
@@ -24,6 +25,11 @@ const BlogPage = () => {
 
     return (
         <div className="pt-24 pb-20 bg-slate-50 min-h-screen">
+            <SEO
+                title="Blog"
+                description="Read our latest travel guides, tips, and stories. Get inspired for your next adventure with Infinite Yatra."
+                url="/blog"
+            />
             <div className="container mx-auto px-6">
                 <div className="text-center max-w-3xl mx-auto mb-12">
                     <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">

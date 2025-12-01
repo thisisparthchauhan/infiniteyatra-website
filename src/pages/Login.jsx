@@ -1,10 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
+import SEO from '../components/SEO';
 
 const Login = () => {
     return (
         <div className="min-h-screen flex items-center justify-center relative">
+            <SEO
+                title="Login"
+                description="Login to your Infinite Yatra account to manage your bookings and preferences."
+                url="/login"
+            />
             {/* Background Image */}
             <div className="absolute inset-0 z-0">
                 <img

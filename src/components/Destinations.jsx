@@ -2,11 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin, Star, ArrowRight } from 'lucide-react';
 import { packages } from '../data/packages';
-import BookingModal from './BookingModal';
+
 
 const Destinations = ({ packages: propPackages, title = "Explore Infinite", showViewAll = true }) => {
     const displayPackages = propPackages || packages;
-    const [selectedPackage, setSelectedPackage] = React.useState(null);
 
     return (
         <section id="destinations" className="py-24 bg-white relative z-10">
@@ -65,21 +64,7 @@ const Destinations = ({ packages: propPackages, title = "Explore Infinite", show
                                         {dest.location}
                                     </div>
 
-                                    {/* Book Now Button */}
-                                    <button
-                                        onClick={(e) => {
-                                            e.preventDefault();
-                                            e.stopPropagation();
-                                            setSelectedPackage(dest);
-                                        }}
-                                        className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 
-                                                 text-white px-4 py-2.5 rounded-lg font-semibold text-sm
-                                                 shadow-md hover:shadow-lg transition-all duration-300 
-                                                 flex items-center justify-center gap-2 group/btn"
-                                    >
-                                        <span>Book Now</span>
-                                        <ArrowRight size={16} className="group-hover/btn:translate-x-1 transition-transform" />
-                                    </button>
+
                                 </div>
                             </Link>
                         ))}
@@ -105,12 +90,7 @@ const Destinations = ({ packages: propPackages, title = "Explore Infinite", show
                 )}
             </div>
 
-            {/* Booking Modal */}
-            <BookingModal
-                isOpen={!!selectedPackage}
-                onClose={() => setSelectedPackage(null)}
-                packageTitle={selectedPackage?.title}
-            />
+
         </section>
     );
 };
