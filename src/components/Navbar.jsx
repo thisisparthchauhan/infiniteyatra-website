@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Phone, Search, MapPin, Info, Sparkles, BookOpen, Home, User, Package, Mail } from 'lucide-react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Menu, X, Phone, Search, MapPin, Info, Sparkles, BookOpen, Home, User, Package, Mail, LogOut } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
 
 import logo from '../assets/logo-new.png';
 
@@ -9,6 +10,9 @@ const Navbar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [activeSection, setActiveSection] = useState('');
     const location = useLocation();
+    const navigate = useNavigate();
+    const { currentUser, logout } = useAuth();
+
     const isAuthPage = location.pathname === '/login' || location.pathname === '/signup';
     const isTripPlannerPage = location.pathname === '/trip-planner';
     const isDestinationsPage = location.pathname === '/destinations';
@@ -57,6 +61,16 @@ const Navbar = () => {
             document.body.style.overflow = 'unset';
         }
     }, [isMobileMenuOpen]);
+
+    const handleLogout = async () => {
+        try {
+            await logout();
+            navigate('/');
+            setIsMobileMenuOpen(false);
+        } catch (error) {
+            console.error("Failed to log out", error);
+        }
+    };
 
     const navItems = [
         { name: 'Home', icon: Home, href: '/', type: 'link' },
@@ -212,33 +226,61 @@ const Navbar = () => {
                                 </button>
                             )}
 
-                            <Link
-                                to="/login"
-                                className={`
-                                    px-5 py-2.5 rounded-full font-medium transition-all duration-300
-                                    ${isAuthPage || isScrolled
-                                        ? 'text-slate-700 hover:text-blue-600 hover:bg-slate-100'
-                                        : 'text-white hover:bg-white/20'}
-                                    hover:scale-105
-                                `}
-                            >
-                                Log In
-                            </Link>
-                            <Link
-                                to="/signup"
-                                className="
-                                    relative overflow-hidden group
-                                    bg-gradient-to-r from-blue-600 to-purple-600 
-                                    hover:from-blue-700 hover:to-purple-700
-                                    text-white px-6 py-2.5 rounded-full font-medium 
-                                    transition-all duration-300 
-                                    shadow-lg shadow-blue-600/30 hover:shadow-xl hover:shadow-blue-600/40
-                                    hover:scale-105
-                                "
-                            >
-                                <span className="relative z-10">Sign Up</span>
-                                <span className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                            </Link>
+                            {currentUser ? (
+                                <div className="flex items-center gap-3">
+                                    <div className={`
+                                        flex items-center gap-2 px-4 py-2 rounded-full
+                                        ${isAuthPage || isScrolled ? 'bg-slate-100 text-slate-700' : 'bg-white/10 text-white'}
+                                    `}>
+                                        <User size={18} />
+                                        <span className="font-medium text-sm">
+                                            {currentUser.displayName || currentUser.email.split('@')[0]}
+                                        </span>
+                                    </div>
+                                    <button
+                                        onClick={handleLogout}
+                                        className={`
+                                            p-2.5 rounded-full transition-all duration-300
+                                            ${isAuthPage || isScrolled
+                                                ? 'hover:bg-red-50 text-slate-600 hover:text-red-600'
+                                                : 'hover:bg-white/20 text-white hover:text-red-200'}
+                                        `}
+                                        title="Logout"
+                                    >
+                                        <LogOut size={20} />
+                                    </button>
+                                </div>
+                            ) : (
+                                <>
+                                    <Link
+                                        to="/login"
+                                        className={`
+                                            px-5 py-2.5 rounded-full font-medium transition-all duration-300
+                                            ${isAuthPage || isScrolled
+                                                ? 'text-slate-700 hover:text-blue-600 hover:bg-slate-100'
+                                                : 'text-white hover:bg-white/20'}
+                                            hover:scale-105
+                                        `}
+                                    >
+                                        Log In
+                                    </Link>
+                                    <Link
+                                        to="/signup"
+                                        className="
+                                            relative overflow-hidden group
+                                            bg-gradient-to-r from-blue-600 to-purple-600 
+                                            hover:from-blue-700 hover:to-purple-700
+                                            text-white px-6 py-2.5 rounded-full font-medium 
+                                            transition-all duration-300 
+                                            shadow-lg shadow-blue-600/30 hover:shadow-xl hover:shadow-blue-600/40
+                                            hover:scale-105
+                                        "
+                                    >
+                                        <span className="relative z-10">Sign Up</span>
+                                        <span className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                                    </Link>
+                                </>
+                            )}
                         </div>
 
                         {/* Mobile Menu Button */}
@@ -351,32 +393,59 @@ const Navbar = () => {
 
                     {/* Auth Actions */}
                     <div className="p-6 space-y-3 mt-auto">
-                        <Link
-                            to="/login"
-                            className="
-                                block text-center px-5 py-3 rounded-xl font-medium
-                                text-slate-700 hover:bg-slate-100
-                                transition-all duration-300 border-2 border-slate-200
-                                hover:border-slate-300
-                            "
-                            onClick={() => setIsMobileMenuOpen(false)}
-                        >
-                            Log In
-                        </Link>
-                        <Link
-                            to="/signup"
-                            className="
-                                block text-center px-5 py-3 rounded-xl font-medium
-                                bg-gradient-to-r from-blue-600 to-purple-600 
-                                text-white shadow-lg shadow-blue-600/30
-                                hover:shadow-xl hover:shadow-blue-600/40
-                                transition-all duration-300
-                                hover:scale-105
-                            "
-                            onClick={() => setIsMobileMenuOpen(false)}
-                        >
-                            Sign Up
-                        </Link>
+                        {currentUser ? (
+                            <>
+                                <div className="flex items-center gap-3 px-4 py-3 bg-slate-50 rounded-xl">
+                                    <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold">
+                                        {currentUser.displayName ? currentUser.displayName[0].toUpperCase() : currentUser.email[0].toUpperCase()}
+                                    </div>
+                                    <div>
+                                        <p className="font-medium text-slate-900">{currentUser.displayName || 'User'}</p>
+                                        <p className="text-xs text-slate-500">{currentUser.email}</p>
+                                    </div>
+                                </div>
+                                <button
+                                    onClick={handleLogout}
+                                    className="
+                                        w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-medium
+                                        text-red-600 bg-red-50 hover:bg-red-100
+                                        transition-all duration-300
+                                    "
+                                >
+                                    <LogOut size={18} />
+                                    Log Out
+                                </button>
+                            </>
+                        ) : (
+                            <>
+                                <Link
+                                    to="/login"
+                                    className="
+                                        block text-center px-5 py-3 rounded-xl font-medium
+                                        text-slate-700 hover:bg-slate-100
+                                        transition-all duration-300 border-2 border-slate-200
+                                        hover:border-slate-300
+                                    "
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                    Log In
+                                </Link>
+                                <Link
+                                    to="/signup"
+                                    className="
+                                        block text-center px-5 py-3 rounded-xl font-medium
+                                        bg-gradient-to-r from-blue-600 to-purple-600 
+                                        text-white shadow-lg shadow-blue-600/30
+                                        hover:shadow-xl hover:shadow-blue-600/40
+                                        transition-all duration-300
+                                        hover:scale-105
+                                    "
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                    Sign Up
+                                </Link>
+                            </>
+                        )}
                     </div>
                 </div>
             </div>
