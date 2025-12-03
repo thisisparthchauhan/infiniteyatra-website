@@ -7,6 +7,8 @@ import Contact from '../components/Contact';
 import SEO from '../components/SEO';
 
 
+import InstagramFeed from '../components/InstagramFeed';
+
 const Home = () => {
     useEffect(() => {
         // Handle hash scrolling when page loads with a hash (e.g., /#about)
@@ -38,6 +40,7 @@ const Home = () => {
             <Destinations />
             <BlogPreview />
             <About />
+            <InstagramFeed />
             <Contact />
         </>
     );

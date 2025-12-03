@@ -6,6 +6,7 @@ import {
     Camera, Compass, Heart, TrendingUp, Loader2
 } from 'lucide-react';
 import SEO from '../components/SEO';
+import { generateItinerary as generateItineraryAPI } from '../services/gemini';
 
 const TripPlanner = () => {
     const [formData, setFormData] = useState({
@@ -57,24 +58,27 @@ const TripPlanner = () => {
     const generateItinerary = async (e) => {
         e.preventDefault();
         setIsGenerating(true);
+        setGeneratedItinerary(null);
 
-        // Simulate AI processing
-        await new Promise(resolve => setTimeout(resolve, 2500));
+        try {
+            const days = calculateDays(formData.startDate, formData.endDate);
+            const dataToSubmit = { ...formData, days };
 
-        // Generate mock itinerary based on inputs
-        const days = calculateDays(formData.startDate, formData.endDate);
-        const itinerary = createMockItinerary(formData, days);
+            const itinerary = await generateItineraryAPI(dataToSubmit);
+            setGeneratedItinerary(itinerary);
 
-        setGeneratedItinerary(itinerary);
-        setIsGenerating(false);
-
-        // Scroll to results
-        setTimeout(() => {
-            document.getElementById('itinerary-results')?.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }, 100);
+            // Scroll to results
+            setTimeout(() => {
+                document.getElementById('itinerary-results')?.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }, 100);
+        } catch (error) {
+            alert(error.message);
+        } finally {
+            setIsGenerating(false);
+        }
     };
 
     const calculateDays = (start, end) => {
@@ -83,87 +87,7 @@ const TripPlanner = () => {
         const endDate = new Date(end);
         const diffTime = Math.abs(endDate - startDate);
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        return Math.max(1, diffDays);
-    };
-
-    const createMockItinerary = (data, days) => {
-        const destination = data.destination || 'Your Destination';
-        const styles = data.travelStyle.length > 0 ? data.travelStyle : ['culture', 'food'];
-
-        const activities = {
-            adventure: ['Hiking expedition', 'Rock climbing', 'Zip-lining adventure', 'Kayaking tour', 'Mountain biking'],
-            relaxation: ['Spa treatment', 'Beach time', 'Yoga session', 'Meditation retreat', 'Sunset viewing'],
-            culture: ['Museum visit', 'Historical site tour', 'Local market exploration', 'Art gallery visit', 'Cultural performance'],
-            food: ['Food tour', 'Cooking class', 'Local restaurant dining', 'Street food tasting', 'Wine tasting'],
-            nature: ['Nature walk', 'Wildlife safari', 'Botanical garden visit', 'Scenic viewpoint', 'Bird watching'],
-            nightlife: ['Live music venue', 'Rooftop bar', 'Night market', 'Cultural show', 'Evening cruise']
-        };
-
-        const dayPlans = [];
-        for (let i = 0; i < days; i++) {
-            const dayActivities = [];
-            const selectedStyles = [...styles].sort(() => Math.random() - 0.5);
-
-            // Morning activity
-            const morningStyle = selectedStyles[0] || 'culture';
-            dayActivities.push({
-                time: '9:00 AM',
-                period: 'morning',
-                title: activities[morningStyle][Math.floor(Math.random() * activities[morningStyle].length)],
-                description: `Start your day with an exciting ${morningStyle} experience`,
-                duration: '2-3 hours'
-            });
-
-            // Afternoon activity
-            const afternoonStyle = selectedStyles[1] || 'food';
-            dayActivities.push({
-                time: '2:00 PM',
-                period: 'afternoon',
-                title: activities[afternoonStyle][Math.floor(Math.random() * activities[afternoonStyle].length)],
-                description: `Enjoy the afternoon with ${afternoonStyle} activities`,
-                duration: '2-3 hours'
-            });
-
-            // Evening activity
-            const eveningStyle = selectedStyles[2] || selectedStyles[0] || 'relaxation';
-            dayActivities.push({
-                time: '7:00 PM',
-                period: 'evening',
-                title: activities[eveningStyle][Math.floor(Math.random() * activities[eveningStyle].length)],
-                description: `Wind down with ${eveningStyle} in the evening`,
-                duration: '2-3 hours'
-            });
-
-            dayPlans.push({
-                day: i + 1,
-                title: i === 0 ? 'Arrival & Exploration' : i === days - 1 ? 'Final Day & Departure' : `Discover ${destination}`,
-                activities: dayActivities
-            });
-        }
-
-        const budgetEstimate = {
-            budget: { accommodation: 50, food: 30, activities: 20, transport: 15 },
-            medium: { accommodation: 150, food: 80, activities: 70, transport: 30 },
-            luxury: { accommodation: 400, food: 200, activities: 150, transport: 80 }
-        };
-
-        const costs = budgetEstimate[data.budget];
-        const dailyCost = Object.values(costs).reduce((a, b) => a + b, 0);
-        const totalCost = dailyCost * days * parseInt(data.travelers);
-
-        return {
-            destination,
-            days,
-            travelers: data.travelers,
-            budget: data.budget,
-            dayPlans,
-            costBreakdown: {
-                daily: dailyCost,
-                total: totalCost,
-                perPerson: dailyCost * days,
-                categories: costs
-            }
-        };
+        return Math.max(1, diffDays + 1); // Include both start and end dates
     };
 
     const getPeriodIcon = (period) => {

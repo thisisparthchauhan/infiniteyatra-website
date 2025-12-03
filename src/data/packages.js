@@ -476,20 +476,55 @@ export const packages = [
         title: "The Soul of Himalayas",
         location: "Himalayas, India",
         image: soulOfHimalayasImg,
-        price: 0,
-        priceDisplay: "₹TBD",
+        price: 18000,
+        priceDisplay: "₹18,000",
         type: "custom",
         pdf: "/itineraries/IY_The_Soul_Of_Himalayas.pdf",
         rating: 5.0,
-        duration: "TBD Days",
+        duration: "7 Days / 6 Nights",
         difficulty: "Moderate",
         bestTime: "Year Round",
-        maxAltitude: "TBD ft",
-        description: "Experience the spiritual and natural essence of the Himalayas. (Description to be updated)",
+        maxAltitude: "12,500 ft",
+        description: `✨ The Soul of Himalayas – Infinite Yatra Signature Expedition
+
+Kedarnath • Tungnath • Badrinath • 5 Prayag • Rishikesh • River Rafting
+
+Step into a journey where every mountain breathes stories, every river carries ancient wisdom, and every moment reconnects you with your own soul.
+This is not just a tour — this is a pilgrimage into the heart of the Himalayas.
+
+🌄 Kedarnath — Where Faith Touches the Sky
+Walk the sacred path to the divine Jyotirlinga, surrounded by towering peaks and the energy of centuries-old devotion.
+
+🕉 Tungnath — The Highest Shiva Temple in the World
+A trek that purifies the mind. A view that transforms the heart.
+Here, the Himalayas whisper your purpose.
+
+🌺 Badrinath — The Gateway to Moksha
+Seek blessings at the holy shrine of Badri Vishal as the Alaknanda flows beside you like a guide from another lifetime.
+
+🌊 Panch Prayag — The Confluence of Destiny
+Witness the meeting of five sacred rivers:
+Devprayag, Rudraprayag, Karnaprayag, Nandprayag, Vishnuprayag.
+Each confluence is a spiritual milestone, a reminder that all paths eventually unite.
+
+🌱 Rishikesh — Yoga Capital of the World
+Experience the calm of Ganga Aarti, the purity of the ghats, and the vibrance of a town where seekers from every corner come to find peace.
+
+⚡ River Rafting — Feel the Power of Ganga
+Ride the waves of adventure as the Ganga flows wild and free — a thrilling reminder that life is meant to be lived boldly.
+
+💫 Why We Call This Journey “The Soul of Himalayas”
+Because this route isn’t just scenic — it is sacred.
+It carries the essence of Shiva, the peace of the sages, the raw beauty of untouched mountains, and the energy that transforms a person from within.
+
+When you return, you don’t just bring back photos — you bring back a new version of yourself.`,
         highlights: [
-            "Highlight 1",
-            "Highlight 2",
-            "Highlight 3"
+            "Kedarnath - Divine Jyotirlinga",
+            "Tungnath - Highest Shiva Temple",
+            "Badrinath - Gateway to Moksha",
+            "Panch Prayag - 5 Sacred Confluences",
+            "Rishikesh - Yoga Capital",
+            "River Rafting in Ganga"
         ],
         itinerary: [
             {

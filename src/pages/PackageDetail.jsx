@@ -141,7 +141,7 @@ const PackageDetail = () => {
                         {/* Overview */}
                         <section>
                             <h2 className="text-3xl font-bold text-slate-900 mb-6">Overview</h2>
-                            <p className="text-slate-600 leading-relaxed text-lg">{pkg.description}</p>
+                            <p className="text-slate-600 leading-relaxed text-lg whitespace-pre-line">{pkg.description}</p>
                         </section>
 
                         {/* Highlights */}
